@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Control</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        .devices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+        .device {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .device:hover {
+            transform: translateY(-5px);
+        }
+        .device-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
+        .device-name {
+            font-weight: 600;
+            color: #4a5568;
+            margin: 10px 0;
+        }
+        .control-group {
+            width: 100%;
+            margin: 15px 0;
+            text-align: center;
+        }
+        input[type="range"], input[type="number"] {
+            width: 80%;
+            margin: 10px 0;
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        input[type="color"] {
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .value-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #4a5568;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Smart Home Control</h1>
+            <p>by Team 20LakhLPA</p>
+        </div>
+        
+        <div class="devices-grid">
+            <div class="device" id="fan">
+                <span class="device-name">Fan Control</span>
+                <img src="images/fan.png" alt = "fan" class="device-icon">
+                <div class="control-group">
+                    <label for="fanrange">Fan Speed</label>
+                    <input type="number" id="fanrange" min="0" max="5" value="0" onchange="updateFanSpeed(this.value)">
+                    <div class="value-display" id="fan-speed">Speed: 0</div>
+                </div>
+                <button class="btn" onclick="toggleDevice('fan')">
+                    <span>Switch</span>
+                </button>
+            </div>
+            <div class="device" id="lights">
+                <span class="device-name">Light Control</span>
+                <img src="images/lightbulb.png" alt = "Light" class="device-icon">
+                <div class="control-group">
+                    <label for="brightness">Brightness</label>
+                    <input type="range" id="brightness" min="0" max="100" value="100">
+                </div>
+                <button class="btn" onclick="toggleDevice('lights')">
+                    <span>Switch</span>
+                </button>
+            </div>
+            <div class="device" id="led">
+                <span class="device-name">LED Control</span>
+                <img src="images/ledbulb.png" alt = "LED" class="device-icon">
+                <div class="control-group">
+                    <input type="color" id="color-picker" value="#ff0000" onchange="changeDeviceColor(this.value)">
+                </div>
+                <button class="btn" onclick="toggleDevice('led')">
+                    <span>Switch</span>
+                </button>
+            </div>
+
+            <div class="device" id="ac">
+                <span class="device-name">AC Control</span>
+                <img src="images/ac.png" alt = "ac" class="device-icon">
+                <div class="control-group">
+                    <label for="acrange">Temperature</label>
+                    <input type="range" id="acrange" min="16" max="32" value="23" onchange="updateACTemp(this.value)">
+                    <div class="value-display" id="ac-temp">23°C</div>
+                </div>
+                <button class="btn" onclick="toggleDevice('ac')">
+                    <span>Switch</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
